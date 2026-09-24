@@ -11,10 +11,17 @@ I build production-grade systems at the intersection of software engineering, AI
 ### 📈 NSE/BSE Stock Analyser *(Public)*
 > Institutional-grade Indian equity research engine
 
-Fully automated daily screener that filters 5,000+ NSE/BSE stocks down to the top 100 using a 3-stage pipeline. Delivers a professional Excel dashboard every morning with deep fundamental forensics, AI-powered research synthesis, and outcome tracking.
+Fully automated daily screener that filters 5,000+ NSE/BSE stocks down to the top 100 through a 3-stage funnel, gates every buy candidate against the market regime, and delivers a professional Excel dashboard every morning — with forensic fundamentals, evidence-backed news analysis, and real outcome tracking for every pick.
 
-**Stack**: Python · GitHub Actions · Google Gemini AI · SQLite · openpyxl  
-**Highlights**: Altman Z-Score · Beneish M-Score · Sharpe/Sortino/Calmar · Trailing-stop outcome tracking · 85 regression tests  
+**Stack**: Python · GitHub Actions · SQLite · openpyxl · LLM via OpenAI-compatible API · Windows Task Scheduler (local NSE data job)
+**Highlights**:
+- 15-condition Gold filter + market-regime gate (Nifty vs 20-day SMA with a tolerance band)
+- Regime-aware stop-loss and target, sized from each stock's own volatility (ATR)
+- LLM news extraction that must quote the headline behind every fact — no invented numbers
+- Outcome tracking with a parallel *shadow* trailing stop, so exit rules change on evidence, not intuition
+- Altman Z · Beneish M · Piotroski · Sharpe/Sortino/Calmar · survivorship audit
+- 92 regression tests, each guard verified to fail when its bug is reintroduced
+
 🔗 [View Repository](https://github.com/rajiniottesting-coder/Sharemarket_Analyser_tool)
 
 ---
@@ -22,10 +29,11 @@ Fully automated daily screener that filters 5,000+ NSE/BSE stocks down to the to
 ### 🤖 Multi-Agent Test Automation Framework *(Private)*
 > Enterprise-grade QA orchestration using AI agents
 
-A multi-agent system where specialised AI agents (Analyst, Coder, Reviewer, Runner, Reporter) collaborate to handle the full QA lifecycle autonomously — from requirement analysis through test generation, execution, and reporting.
+A five-agent pipeline — Analyst → Coder → Reviewer → Runner → Reporter — that takes a Jira story from requirement analysis through BDD test generation, review, execution and reporting, driven by a Jira label state machine with a human approval gate.
 
-**Stack**: Python · Google Gemini · Playwright · pytest-bdd  
-**Status**: Active development  
+**Stack**: Python · LangChain · Claude (via LiteLLM gateway) · Playwright · pytest-bdd · Jira Cloud · GitHub Actions
+**Engineering principles**: application-agnostic framework code (verified by swapping in a different target app), validator/repair loops, adversarial break-it verification for every guard
+**Status**: Active development
 *(Code is private — available for review upon request)*
 
 ---
@@ -35,26 +43,26 @@ A multi-agent system where specialised AI agents (Analyst, Coder, Reviewer, Runn
 
 Hands-on implementations covering classical ML (scikit-learn), deep learning (PyTorch, TensorFlow), data visualisation (matplotlib, seaborn, plotly), and exploratory data analysis — with Google Colab notebooks.
 
-**Stack**: Python · PyTorch · TensorFlow · scikit-learn · Jupyter  
-**Status**: Ongoing  
+**Stack**: Python · PyTorch · TensorFlow · scikit-learn · Jupyter
+**Status**: Ongoing
 *(Private repository — experimentation and learning workspace)*
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Languages**: Python · SQL  
-**AI/ML**: Google Gemini · TensorFlow · PyTorch · scikit-learn  
-**Test Automation**: Playwright · pytest · pytest-bdd · multi-agent orchestration  
-**Data & Finance**: pandas · SQLite · openpyxl · NSE/BSE market data APIs  
-**DevOps**: GitHub Actions · CI/CD pipelines · branch protection · regression testing  
+**Languages**: Python · SQL
+**AI/ML**: LLM integration (Claude, OpenAI-compatible APIs) · LangChain · TensorFlow · PyTorch · scikit-learn
+**Test Automation**: Playwright · pytest · pytest-bdd · multi-agent orchestration · Jira Cloud
+**Data & Finance**: pandas · SQLite · openpyxl · NSE/BSE market data
+**DevOps**: GitHub Actions · CI/CD pipelines · branch protection · regression testing
 
 ---
 
 ## 📊 What I focus on
 
 - **Institutional-quality engineering** — every project ships with regression tests, proper documentation, and production-grade error handling
-- **AI-augmented workflows** — using LLMs not as toys but as production components in real pipelines
+- **AI-augmented workflows** — using LLMs not as toys but as production components, with guardrails that make their output verifiable
 - **Honest measurement** — if a system produces numbers (stock picks, test results, model accuracy), those numbers must be verifiable and auditable
 
 ---
