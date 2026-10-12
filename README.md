@@ -9,18 +9,22 @@ I build production-grade systems at the intersection of software engineering, AI
 ## 🔭 Active Projects
 
 ### 📈 NSE/BSE Stock Analyser *(Public)*
-> Institutional-grade Indian equity research engine
+> Automated Indian equity research engine
 
-Fully automated daily screener that filters 5,000+ NSE/BSE stocks down to the top 100 through a 3-stage funnel, gates every buy candidate against the market regime, and delivers a professional Excel dashboard every morning — with forensic fundamentals, evidence-backed news analysis, and real outcome tracking for every pick.
+Fully automated daily screener that filters ~5,200 NSE/BSE stocks down to the top 100 through a 3-stage funnel, gates every buy candidate against the market regime, and emails an 8-sheet Excel dashboard every trading morning — with forensic fundamentals, evidence-backed news analysis, and real outcome tracking for every pick.
 
-**Stack**: Python · GitHub Actions · SQLite · openpyxl · LLM via OpenAI-compatible API · Windows Task Scheduler (local NSE data job)
+**Stack**: Python · GitHub Actions · SQLite · pandas · openpyxl · LLM via OpenAI-compatible API · Gmail SMTP · Windows Task Scheduler (weekly local NSE data job)
 **Highlights**:
 - 15-condition Gold filter + market-regime gate (Nifty vs 20-day SMA with a tolerance band)
-- Regime-aware stop-loss and target, sized from each stock's own volatility (ATR)
+- 7 fair-value models (DCF, Graham, PE, PB, EV/EBITDA, DDM, PEG) blended into a composite fair value and margin of safety
+- Regime-aware stop-loss and target, sized from each stock's own volatility (ATR); risk-parity position sizing keeps each pick at or below ~1% portfolio risk
 - LLM news extraction that must quote the headline behind every fact — no invented numbers
+- NSE pledge/promoter data from a weekly local fetch, used only while fresh (≤ 14 days) — an honest blank beats a stale number
 - Outcome tracking with a parallel *shadow* trailing stop, so exit rules change on evidence, not intuition
 - Altman Z · Beneish M · Piotroski · Sharpe/Sortino/Calmar · survivorship audit
-- 92 regression tests, each guard verified to fail when its bug is reintroduced
+- Nearly 100 regression tests, green on Linux and Windows — each guard verified to fail when its bug is reintroduced
+
+**Status**: Live — runs every trading day; logic held steady while a clean outcome cohort builds up before the next tuning round
 
 🔗 [View Repository](https://github.com/rajiniottesting-coder/Sharemarket_Analyser_tool)
 
