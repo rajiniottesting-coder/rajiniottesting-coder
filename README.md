@@ -9,18 +9,22 @@ I build production-grade systems at the intersection of software engineering, AI
 ## 🔭 Active Projects
 
 ### 📈 NSE/BSE Stock Analyser *(Public)*
-> Institutional-grade Indian equity research engine
+> Automated Indian equity research engine
 
-Fully automated daily screener that filters 5,000+ NSE/BSE stocks down to the top 100 through a 3-stage funnel, gates every buy candidate against the market regime, and delivers a professional Excel dashboard every morning — with forensic fundamentals, evidence-backed news analysis, and real outcome tracking for every pick.
+Fully automated daily screener that filters ~5,200 NSE/BSE stocks down to the top 100 through a 3-stage funnel, gates every buy candidate against the market regime, and emails an 8-sheet Excel dashboard every trading morning — with forensic fundamentals, evidence-backed news analysis, and real outcome tracking for every pick.
 
-**Stack**: Python · GitHub Actions · SQLite · openpyxl · LLM via OpenAI-compatible API · Windows Task Scheduler (local NSE data job)
+**Stack**: Python · GitHub Actions · SQLite · pandas · openpyxl · LLM via OpenAI-compatible API · Gmail SMTP · Windows Task Scheduler (weekly local NSE data job)
 **Highlights**:
 - 15-condition Gold filter + market-regime gate (Nifty vs 20-day SMA with a tolerance band)
-- Regime-aware stop-loss and target, sized from each stock's own volatility (ATR)
+- 7 fair-value models (DCF, Graham, PE, PB, EV/EBITDA, DDM, PEG) blended into a composite fair value and margin of safety
+- Regime-aware stop-loss and target, sized from each stock's own volatility (ATR); risk-parity position sizing keeps each pick at or below ~1% portfolio risk
 - LLM news extraction that must quote the headline behind every fact — no invented numbers
+- NSE pledge/promoter data from a weekly local fetch, used only while fresh (≤ 14 days) — an honest blank beats a stale number
 - Outcome tracking with a parallel *shadow* trailing stop, so exit rules change on evidence, not intuition
 - Altman Z · Beneish M · Piotroski · Sharpe/Sortino/Calmar · survivorship audit
-- 92 regression tests, each guard verified to fail when its bug is reintroduced
+- Nearly 100 regression tests, green on Linux and Windows — each guard verified to fail when its bug is reintroduced
+
+**Status**: Live — runs every trading day; logic held steady while a clean outcome cohort builds up before the next tuning round
 
 🔗 [View Repository](https://github.com/rajiniottesting-coder/Sharemarket_Analyser_tool)
 
@@ -29,11 +33,18 @@ Fully automated daily screener that filters 5,000+ NSE/BSE stocks down to the to
 ### 🤖 Multi-Agent Test Automation Framework *(Private)*
 > Enterprise-grade QA orchestration using AI agents
 
-A five-agent pipeline — Analyst → Coder → Reviewer → Runner → Reporter — that takes a Jira story from requirement analysis through BDD test generation, review, execution and reporting, driven by a Jira label state machine with a human approval gate.
+A six-agent pipeline — Impact Analyst → Test Designer → Coder → Reviewer → Runner → Reporter — that takes a Jira story to a reviewed, executed pull request. There is no orchestrator: state lives in Jira labels, marker comments and the PR, and a person approves at every gate.
 
-**Stack**: Python · LangChain · Claude (via LiteLLM gateway) · Playwright · pytest-bdd · Jira Cloud · GitHub Actions
+**Stack**: Python · Playwright · pytest-bdd · any OpenAI-compatible LLM · Pydantic · Jira Cloud · GitHub Actions
+**Highlights**:
+- **Change-impact analysis (Agent 0)** — a code graph (scenario → step → method → selector) plus LLM judgement finds the existing tests a changed story affects; a person approves, rejects or retires each one, and a closed-unmerged PR is undone automatically
+- Plan-then-generate code, one file at a time, behind a 28-check static validator gate with targeted repair
+- Every model reply validated against a Pydantic schema; every model writer grounded in real method signatures
+- Swappable tools behind two Protocols (Tracker, RepoHost); per-story token and cost ledger posted to Jira
+- ~2,780 offline unit tests, including a guard that fails if any framework file names the application under test
+
 **Engineering principles**: application-agnostic framework code (verified by swapping in a different target app), validator/repair loops, adversarial break-it verification for every guard
-**Status**: Active development
+**Status**: Active development — Agent 0 live and in validation
 *(Code is private — available for review upon request)*
 
 ---
@@ -53,7 +64,7 @@ Hands-on implementations covering classical ML (scikit-learn), deep learning (Py
 
 **Languages**: Python · SQL
 **AI/ML**: LLM integration (Claude, OpenAI-compatible APIs) · LangChain · TensorFlow · PyTorch · scikit-learn
-**Test Automation**: Playwright · pytest · pytest-bdd · multi-agent orchestration · Jira Cloud
+**Test Automation**: Playwright · pytest · pytest-bdd · multi-agent pipelines · change-impact analysis · Jira Cloud
 **Data & Finance**: pandas · SQLite · openpyxl · NSE/BSE market data
 **DevOps**: GitHub Actions · CI/CD pipelines · branch protection · regression testing
 
