@@ -29,11 +29,18 @@ Fully automated daily screener that filters 5,000+ NSE/BSE stocks down to the to
 ### 🤖 Multi-Agent Test Automation Framework *(Private)*
 > Enterprise-grade QA orchestration using AI agents
 
-A five-agent pipeline — Analyst → Coder → Reviewer → Runner → Reporter — that takes a Jira story from requirement analysis through BDD test generation, review, execution and reporting, driven by a Jira label state machine with a human approval gate.
+A six-agent pipeline — Impact Analyst → Test Designer → Coder → Reviewer → Runner → Reporter — that takes a Jira story to a reviewed, executed pull request. There is no orchestrator: state lives in Jira labels, marker comments and the PR, and a person approves at every gate.
 
-**Stack**: Python · LangChain · Claude (via LiteLLM gateway) · Playwright · pytest-bdd · Jira Cloud · GitHub Actions
+**Stack**: Python · Playwright · pytest-bdd · any OpenAI-compatible LLM · Pydantic · Jira Cloud · GitHub Actions
+**Highlights**:
+- **Change-impact analysis (Agent 0)** — a code graph (scenario → step → method → selector) plus LLM judgement finds the existing tests a changed story affects; a person approves, rejects or retires each one, and a closed-unmerged PR is undone automatically
+- Plan-then-generate code, one file at a time, behind a 28-check static validator gate with targeted repair
+- Every model reply validated against a Pydantic schema; every model writer grounded in real method signatures
+- Swappable tools behind two Protocols (Tracker, RepoHost); per-story token and cost ledger posted to Jira
+- ~2,780 offline unit tests, including a guard that fails if any framework file names the application under test
+
 **Engineering principles**: application-agnostic framework code (verified by swapping in a different target app), validator/repair loops, adversarial break-it verification for every guard
-**Status**: Active development
+**Status**: Active development — Agent 0 live and in validation
 *(Code is private — available for review upon request)*
 
 ---
@@ -53,7 +60,7 @@ Hands-on implementations covering classical ML (scikit-learn), deep learning (Py
 
 **Languages**: Python · SQL
 **AI/ML**: LLM integration (Claude, OpenAI-compatible APIs) · LangChain · TensorFlow · PyTorch · scikit-learn
-**Test Automation**: Playwright · pytest · pytest-bdd · multi-agent orchestration · Jira Cloud
+**Test Automation**: Playwright · pytest · pytest-bdd · multi-agent pipelines · change-impact analysis · Jira Cloud
 **Data & Finance**: pandas · SQLite · openpyxl · NSE/BSE market data
 **DevOps**: GitHub Actions · CI/CD pipelines · branch protection · regression testing
 
