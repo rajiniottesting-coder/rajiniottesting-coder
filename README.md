@@ -11,7 +11,7 @@ I build production-grade systems at the intersection of software engineering, AI
 ### 📈 NSE/BSE Stock Analyser *(Public)*
 > Automated Indian equity research engine
 
-Fully automated daily screener that takes every stock traded on NSE and BSE that day — about 5,200, counting a company listed on both exchanges once — down to the top 100 through a 3-stage funnel, holds back its Gold picks when the market regime turns bearish, and emails an 8-sheet Excel dashboard every trading morning — with forensic fundamentals, headline-based news analysis, and real outcome tracking for every Gold pick.
+Fully automated daily screener that refreshes technical indicators for ~6,200 NSE/BSE ticker symbols active in the past week, then takes every stock traded that day — about 5,200, counting a company listed on both exchanges once — down to the top 100 through a 3-stage funnel, holds back its Gold picks when the market regime turns bearish, and emails an 8-sheet Excel dashboard every trading morning — with forensic fundamentals, headline-based news analysis, and real outcome tracking for every Gold pick.
 
 **Stack**: Python · GitHub Actions · SQLite · pandas · openpyxl · LLM via OpenAI-compatible API · Gmail SMTP · Windows Task Scheduler (weekly local NSE data job)
 **Highlights**:
